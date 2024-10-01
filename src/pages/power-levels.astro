@@ -1,0 +1,53 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+import ArticleLink from "../components/ArticleLink.astro";
+
+const sections = [
+  { name: "Low", id: "low" },
+  { name: "Low Mid", id: "low-mid" },
+  { name: "Mid", id: "mid" },
+  { name: "High Mid", id: "high-mid" },
+  { name: "High", id: "high" },
+];
+---
+
+<RootLayout title="Power Levels" sections={sections}>
+  <article class="prose pb-60">
+    <h1 id="page-header">Power Levels</h1>
+    <section id="low">
+      <h2>Low</h2>
+      <p>
+        The lowest power we usually play in casual: most precons fall in this
+        category
+      </p>
+    </section>
+    <section id="low-mid">
+      <h2>Low Mid</h2>
+      <p>This is some more powerful precons, and slightly upgraded precons</p>
+    </section>
+    <section id="mid">
+      <h2>Mid</h2>
+      <p>
+        This is probably the most common power level that you'll see. This level
+        includes heavily upgraded precons, and probably your "average" homebrew
+        decklist
+      </p>
+    </section>
+    <section id="high-mid">
+      <h2>High Mid</h2>
+      <p>
+        This is probably the most common power level that you'll see. This level
+        includes heavily upgraded precons, and probably your "average" homebrew
+        decklist
+      </p>
+    </section>
+    <section id="high">
+      <h2>High</h2>
+      <p>
+        This is probably the most common power level that you'll see. This level
+        includes heavily upgraded precons, and probably your "average" homebrew
+        decklist
+      </p>
+    </section>
+  </article>
+</RootLayout>

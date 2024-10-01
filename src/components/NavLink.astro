@@ -1,0 +1,27 @@
+---
+import { twMerge } from "tailwind-merge";
+import { clsx } from "clsx";
+import ChevronRight from "astro-heroicons/solid/ChevronRight.astro";
+
+interface Props {
+	name: string;
+	href: string;
+	isActive: boolean;
+}
+
+const { name, href, isActive } = Astro.props;
+---
+
+<li class="group relative">
+	<a href={href}>{name}</a>
+	<div
+		class={twMerge(
+			clsx(
+				"size-6 absolute -left-6 top-0 pointer-events-none flex items-center invisible group-hover:visible group-hover:translate-x-1 transition-all duration-100",
+				isActive ? "visible translate-x-1" : "invisible",
+			),
+		)}
+	>
+		<ChevronRight class="size-5 stroke-2" />
+	</div>
+</li>

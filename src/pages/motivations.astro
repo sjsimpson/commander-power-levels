@@ -1,0 +1,55 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+import ArticleLink from "../components/ArticleLink.astro";
+
+const sections = [
+  { name: "Why?", id: "why" },
+  { name: "Goals", id: "goals" },
+  { name: "Learn", id: "learn" },
+];
+---
+
+<RootLayout title="Motivations & Objectives" sections={sections}>
+  <article class="prose pb-60">
+    <h1 id="page-header">Motivations & Objectives</h1>
+    <section id="why">
+      <h2>Why?</h2>
+      <p>
+        Traditional "power levels" conversations using the 1-10 scale have
+        become unproductive at best. Our hypothesis is that it is primarily due
+        to the qualitative nature of the discussion.
+      </p>
+
+      <p>
+        The purpose of these docs is to provide tools for for having Rule 0
+        disucssions and evaluating cards/decks in a vacuum using more
+        quantitative measures.
+      </p>
+    </section>
+
+    <section id="goals">
+      <h2 id="goals">Goals</h2>
+      <p>
+        We recognize that the paradigms and philosophies presented here are not
+        perfect, and as such, these will be living documents that we adjust over
+        time.
+      </p>
+
+      <p>
+        We hope this will provide a better standard for discussing power levels
+        both based on the overall goals and strategies of, and the specific
+        cards included in, a given deck.
+      </p>
+    </section>
+
+    <section id="learn">
+      <h2>Learn</h2>
+      <div class="flex flex-col gap-2">
+        <ArticleLink href="/philosophy" text="Power Levels Philosophy" />
+        <ArticleLink href="/" text="Vegetables" />
+        <ArticleLink href="/" text="Card Types and Power Level" />
+        <ArticleLink href="/" text="Deckbuilding and Power Level" />
+      </div>
+    </section>
+  </article>
+</RootLayout>

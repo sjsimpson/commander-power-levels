@@ -1,0 +1,22 @@
+---
+import RootLayout from "../layouts/RootLayout.astro";
+
+const sections = [
+  { name: "Consistent Power Levels", id: "consistency" },
+  { name: "Vegetables", id: "vegetables" },
+];
+---
+
+<RootLayout title="Assumptions" sections={sections}>
+  <article class="prose pb-60">
+    <h1 id="page-header">Assumptions</h1>
+    <section id="consistency">
+      <h2>Consistent Power Levels</h2>
+      <p>test</p>
+    </section>
+    <section id="vegetables">
+      <h2>Vegetables</h2>
+      <p>test</p>
+    </section>
+  </article>
+</RootLayout>

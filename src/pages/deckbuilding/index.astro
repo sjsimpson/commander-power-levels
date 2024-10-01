@@ -1,0 +1,33 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+// import ArticleLink from "../components/ArticleLink.astro";
+
+const sections = [
+  { name: "Template", id: "template" },
+  { name: "Card Advantage", id: "card-advantage" },
+  { name: "Interaction", id: "interaction" },
+  { name: "Ramp", id: "ramp" },
+];
+---
+
+<RootLayout title="Deckbuilding" sections={sections}>
+  <article class="prose pb-60">
+    <h1 id="page-header">Deckbuilding</h1>
+    <section id="template">
+      <h2>Template</h2>
+      <p>test</p>
+    </section>
+    <section id="card-advantage">
+      <h2>Card Advantage</h2>
+      <p>test</p>
+    </section>
+    <section id="interaction">
+      <h2>Interaction</h2>
+      <p>test</p>
+    </section>
+    <section id="ramp">
+      <h2>Ramp</h2>
+      <p>test</p>
+    </section>
+  </article>
+</RootLayout>

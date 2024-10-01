@@ -1,0 +1,81 @@
+---
+import NavLink from "../components/NavLink.astro";
+import { SubNav, type SubNavItem } from "../components/SubNav";
+
+interface Props {
+	title: string;
+	sections: SubNavItem[];
+}
+
+const { title, sections } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="bg-slate-100 overflow-hidden">
+		<div
+			class="fixed flex flex-row pl-20 w-full h-20 items-center font-black text-2xl z-50 bg-slate-100"
+		>
+			<a href="/" class="cursor-pointer">Commander Power Levels</a>
+		</div>
+		<div
+			class="flex flex-col fixed h-screen w-1/5 top-0 left-0 pl-20 py-24 gap-4 z-10"
+		>
+			<input class="py-1 px-2" placeholder="search" />
+			<ul class="flex flex-col gap-1 w-full">
+				<NavLink
+					name="Motivations & Objectives"
+					href="/"
+					isActive={title === "Motivations & Objectives"}
+				/>
+				<NavLink
+					name="Power Levels"
+					href="/power-levels"
+					isActive={title === "Power Levels"}
+				/>
+				<NavLink
+					name="Assumptions"
+					href="/assumptions"
+					isActive={title === "Assumptions"}
+				/>
+				<NavLink
+					name="Deckbuilding"
+					href="/deckbuilding"
+					isActive={title === "Deckbuilding"}
+				/>
+				<NavLink
+					name="Influences"
+					href="/influences"
+					isActive={title === "Influences"}
+				/>
+				<NavLink
+					name="Rule 0"
+					href="/rule-zero"
+					isActive={title === "Rule 0 Conversations"}
+				/>
+			</ul>
+		</div>
+		<div
+			id="root"
+			class="relative pt-24 flex flex-row w-full justify-center overflow-y-auto max-h-screen scroll-smooth gap-16"
+		>
+			<main>
+				<div class="flex h-fit pl-10">
+					<div class="flex flex-col h-fit">
+						<slot />
+					</div>
+				</div>
+				<div class="h-96">FOOTER</div>
+			</main>
+			<SubNav client:load pageTitle={title} items={sections} />
+		</div>
+	</body>
+</html>

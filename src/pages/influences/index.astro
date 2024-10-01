@@ -1,0 +1,33 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+// import ArticleLink from "../components/ArticleLink.astro";
+
+const sections = [
+  { name: "Strategies", id: "strategies" },
+  { name: "Tutors", id: "tutors" },
+  { name: "Combos", id: "combos" },
+  { name: "Threat Levels", id: "threat-levels" },
+];
+---
+
+<RootLayout title="Influences" sections={sections}>
+  <article class="prose pb-60">
+    <h1 id="page-header">Influences</h1>
+    <section id="strategies">
+      <h2>Strategies</h2>
+      <p>test</p>
+    </section>
+    <section id="tutors">
+      <h2>Tutors</h2>
+      <p>test</p>
+    </section>
+    <section id="combos">
+      <h2>Combos</h2>
+      <p>test</p>
+    </section>
+    <section id="threat-levels">
+      <h2>Threat Levels</h2>
+      <p>test</p>
+    </section>
+  </article>
+</RootLayout>
