@@ -1,0 +1,35 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import { getCollection } from "astro:content";
+
+const page = "Deckbuilding Template";
+const collection = await getCollection("deckbuilding-template");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
+---
+
+<RootLayout title={page} sections={parsedCollection}>
+  <article class="prose pb-60">
+    <h1 id="page-header">{page}</h1>
+    <p>
+      The following sections will provide a quick reference of guidelines for
+      the “vegetables” of your deck. Also included is a sample deckbuilding
+      template for a Mid-power deck. You can find a breakdown of each vegetable
+      on subsequent pages.
+    </p>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
+  </article>
+</RootLayout>

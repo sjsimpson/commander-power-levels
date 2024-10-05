@@ -1,16 +1,28 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
-// import ArticleLink from "../components/ArticleLink.astro";
+import { getCollection } from "astro:content";
 
-const sections = [{ name: "Non Power Level", id: "non-power-level" }];
+const collection = await getCollection("rule-zero");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
 ---
 
-<RootLayout title="Rule 0 Conversations" sections={sections}>
+<RootLayout title="Rule 0 Conversations" sections={parsedCollection}>
   <article class="prose pb-60">
     <h1 id="page-header">Rule 0 Conversations</h1>
-    <section id="non-power-level">
-      <h2>Non Power Level</h2>
-      <p>test</p>
-    </section>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
   </article>
 </RootLayout>

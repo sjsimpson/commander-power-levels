@@ -1,53 +1,28 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
-import ArticleLink from "../components/ArticleLink.astro";
+import { getCollection } from "astro:content";
 
-const sections = [
-  { name: "Low", id: "low" },
-  { name: "Low Mid", id: "low-mid" },
-  { name: "Mid", id: "mid" },
-  { name: "High Mid", id: "high-mid" },
-  { name: "High", id: "high" },
-];
+const collection = await getCollection("power-levels");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
 ---
 
-<RootLayout title="Power Levels" sections={sections}>
+<RootLayout title="Power Levels" sections={parsedCollection}>
   <article class="prose pb-60">
     <h1 id="page-header">Power Levels</h1>
-    <section id="low">
-      <h2>Low</h2>
-      <p>
-        The lowest power we usually play in casual: most precons fall in this
-        category
-      </p>
-    </section>
-    <section id="low-mid">
-      <h2>Low Mid</h2>
-      <p>This is some more powerful precons, and slightly upgraded precons</p>
-    </section>
-    <section id="mid">
-      <h2>Mid</h2>
-      <p>
-        This is probably the most common power level that you'll see. This level
-        includes heavily upgraded precons, and probably your "average" homebrew
-        decklist
-      </p>
-    </section>
-    <section id="high-mid">
-      <h2>High Mid</h2>
-      <p>
-        This is probably the most common power level that you'll see. This level
-        includes heavily upgraded precons, and probably your "average" homebrew
-        decklist
-      </p>
-    </section>
-    <section id="high">
-      <h2>High</h2>
-      <p>
-        This is probably the most common power level that you'll see. This level
-        includes heavily upgraded precons, and probably your "average" homebrew
-        decklist
-      </p>
-    </section>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
   </article>
 </RootLayout>

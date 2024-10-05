@@ -1,6 +1,7 @@
 ---
-import NavLink from "../components/NavLink.astro";
+import { ViewTransitions } from "astro:transitions";
 import { SubNav, type SubNavItem } from "../components/SubNav";
+import { Nav, type TopLevelNavItem } from "../components/Nav";
 
 interface Props {
 	title: string;
@@ -8,10 +9,68 @@ interface Props {
 }
 
 const { title, sections } = Astro.props;
+
+const navItems: TopLevelNavItem[] = [
+	{ name: "Motivations", href: "/" },
+	{ name: "Power Levels", href: "/power-levels" },
+	{ name: "Assumptions", href: "/assumptions" },
+	{
+		name: "Deckbuilding",
+		href: "/deckbuilding",
+		children: [
+			{
+				name: "Template",
+				href: "/template",
+			},
+			{
+				name: "Card Advantage",
+				href: "/card-advantage",
+			},
+			{
+				name: "Interaction",
+				href: "/interaction",
+			},
+			{
+				name: "Ramp",
+				href: "/ramp",
+			},
+		],
+	},
+	{
+		name: "Influences",
+		href: "/influences",
+		children: [
+			{
+				name: "Strategies",
+				href: "/strategies",
+			},
+			{
+				name: "Combos",
+				href: "/combos",
+			},
+			{
+				name: "Tutors",
+				href: "/tutors",
+			},
+			{
+				name: "Threat Levels",
+				href: "/threat-levels",
+			},
+		],
+	},
+	{ name: "Rule 0", href: "/rule-zero" },
+];
+
+// TODO: Add content to each page
+// FIX: Style primary nav bar: probably choose a new font
+// FIX: Update header to not overlap scrollbar
+// TODO: Add reactive styles
+// TODO: probably add a searchable input at some point
+// TODO: this also means moving text content into objects
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -19,59 +78,30 @@ const { title, sections } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<!-- TODO: Figure out how to add transitions to persist nav -->
+		<ViewTransitions />
 	</head>
-	<body class="bg-slate-100 overflow-hidden">
+	<body
+		class="flex flex-row bg-slate-100 overflow-hidden"
+		transition:animate="none"
+	>
 		<div
-			class="fixed flex flex-row pl-20 w-full h-20 items-center font-black text-2xl z-50 bg-slate-100"
+			class="flex flex-col h-screen w-1/5 top-0 left-0 pl-20 pt-24 pb-12 gap-4 z-10"
 		>
-			<a href="/" class="cursor-pointer">Commander Power Levels</a>
-		</div>
-		<div
-			class="flex flex-col fixed h-screen w-1/5 top-0 left-0 pl-20 py-24 gap-4 z-10"
-		>
-			<input class="py-1 px-2" placeholder="search" />
-			<ul class="flex flex-col gap-1 w-full">
-				<NavLink
-					name="Motivations & Objectives"
-					href="/"
-					isActive={title === "Motivations & Objectives"}
-				/>
-				<NavLink
-					name="Power Levels"
-					href="/power-levels"
-					isActive={title === "Power Levels"}
-				/>
-				<NavLink
-					name="Assumptions"
-					href="/assumptions"
-					isActive={title === "Assumptions"}
-				/>
-				<NavLink
-					name="Deckbuilding"
-					href="/deckbuilding"
-					isActive={title === "Deckbuilding"}
-				/>
-				<NavLink
-					name="Influences"
-					href="/influences"
-					isActive={title === "Influences"}
-				/>
-				<NavLink
-					name="Rule 0"
-					href="/rule-zero"
-					isActive={title === "Rule 0 Conversations"}
-				/>
-			</ul>
+			<div class="uppercase tracking-wider font-semibold text-xl px-8">
+				<a href="/" class="cursor-pointer">Commander Power Levels</a>
+			</div>
+			<!-- <input class="py-1 px-2" placeholder="search" /> -->
+			<Nav client:only transition:persist links={navItems} />
 		</div>
 		<div
 			id="root"
-			class="relative pt-24 flex flex-row w-full justify-center overflow-y-auto max-h-screen scroll-smooth gap-16"
+			class="relative pt-24 pl-20 flex flex-row w-4/5 overflow-y-auto max-h-screen scroll-smooth gap-16"
 		>
-			<main>
-				<div class="flex h-fit pl-10">
-					<div class="flex flex-col h-fit">
-						<slot />
-					</div>
+			<main class="max-w-[1200px]">
+				<div class="flex flex-col h-fit">
+					<slot />
 				</div>
 				<div class="h-96">FOOTER</div>
 			</main>

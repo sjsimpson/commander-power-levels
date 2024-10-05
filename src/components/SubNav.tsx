@@ -60,7 +60,7 @@ function useSubNav() {
   const context = useContext(subNavContext);
 
   if (!context) {
-    throw new Error("useSubNav must be used within an AuthProvider");
+    throw new Error("useSubNav must be used within an SubNavProvider");
   }
 
   return context;
@@ -73,9 +73,6 @@ export function SubNav({
   pageTitle: string;
   items: SubNavItem[];
 }) {
-  // TODO: Update page header to remove underline when scrolled to
-  // This probably means extracting the "scrollObserver" functionality and
-  // Reusing it here
   return (
     <SubNavProvider>
       <SubNavHeader title={pageTitle} />
@@ -88,10 +85,11 @@ export function SubNav({
 }
 
 function SubNavHeader({ title }: { title: string }) {
+  const headerId = "page-header";
   const subnav = useSubNav();
 
   useIntersection({
-    elementId: "page-header",
+    elementId: headerId,
     callback: (entries) => {
       if (Math.round(entries[0]?.boundingClientRect.top) <= SCROLL_OFFSET_TOP) {
         subnav.updateUnderline({
@@ -106,11 +104,26 @@ function SubNavHeader({ title }: { title: string }) {
   return (
     <div className="flex flex-col pl-3 pb-2 gap-1">
       <div className="text-xs text-slate-500">On this page</div>
-      <div className="text-lg font-medium">{title}</div>
+      <div
+        className="text-lg font-medium cursor-pointer"
+        onClick={() => {
+          const root = document.getElementById("root");
+          const section = document.getElementById(headerId);
+          if (section) {
+            root?.scrollTo({
+              top: section.offsetTop - SCROLL_OFFSET_TOP,
+              behavior: "smooth",
+            });
+          }
+        }}
+      >
+        {title}
+      </div>
     </div>
   );
 }
 
+// FIX: on first paint, the box grows for multi-line items... not sure why
 function Underline() {
   const subnav = useSubNav();
 
@@ -136,7 +149,6 @@ function SubNavItem({ item }: { item: SubNavItem }) {
     elementId: item.id,
     callback: (entries) => {
       if (Math.round(entries[0]?.boundingClientRect.top) <= SCROLL_OFFSET_TOP) {
-        console.log("height", ref.current?.offsetHeight);
         subnav.updateUnderline({
           height: ref.current?.offsetHeight,
           width: ref.current?.offsetWidth,
@@ -149,7 +161,7 @@ function SubNavItem({ item }: { item: SubNavItem }) {
   return (
     <div
       ref={ref}
-      className="text-slate-500 hover:text-black hover:bg-slate-200/80 cursor-pointer py-1 px-3 rounded-full"
+      className="text-slate-500 hover:text-black hover:bg-slate-200/80 cursor-pointer py-1 px-3 rounded-[14px]"
       onClick={() => {
         const root = document.getElementById("root");
         const section = document.getElementById(item.id);
@@ -171,7 +183,8 @@ function useIntersection({
   callback,
   options = {
     threshold: [0, 1],
-    rootMargin: `-${SCROLL_OFFSET_TOP}px 0px 0px 0px`,
+    // NOTE: Set bottom margin rediculously high so all content can fit
+    rootMargin: `-${SCROLL_OFFSET_TOP}px 0px -10000px 0px`,
   },
 }: {
   elementId: string;

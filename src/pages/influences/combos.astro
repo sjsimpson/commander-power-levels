@@ -1,0 +1,29 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import { getCollection } from "astro:content";
+
+const page = "Combos";
+const collection = await getCollection("influences-combos");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
+---
+
+<RootLayout title={page} sections={parsedCollection}>
+  <article class="prose pb-60">
+    <h1 id="page-header">{page}</h1>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
+  </article>
+</RootLayout>

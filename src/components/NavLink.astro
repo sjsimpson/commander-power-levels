@@ -7,21 +7,39 @@ interface Props {
 	name: string;
 	href: string;
 	isActive: boolean;
+	subnavItems?: { name: string; href: string };
 }
 
 const { name, href, isActive } = Astro.props;
 ---
 
-<li class="group relative">
-	<a href={href}>{name}</a>
-	<div
+<li>
+	<a
+		href={href}
 		class={twMerge(
 			clsx(
-				"size-6 absolute -left-6 top-0 pointer-events-none flex items-center invisible group-hover:visible group-hover:translate-x-1 transition-all duration-100",
-				isActive ? "visible translate-x-1" : "invisible",
+				isActive && "bg-slate-200/80",
+				"flex py-2 px-4 rounded-full hover:bg-slate-200 gap-2 items-center",
 			),
 		)}
 	>
-		<ChevronRight class="size-5 stroke-2" />
-	</div>
+		<div
+			class={twMerge(
+				clsx("size-5 top-2 -left-10 pointer-events-none flex items-center"),
+			)}
+		>
+			<ChevronRight class="size-5 stroke-2" />
+		</div>
+		<span>{name}</span></a
+	>
+	<!-- <div -->
+	<!-- 	class={twMerge( -->
+	<!-- 		clsx( -->
+	<!-- 			"size-6 top-2 absolute -left-10 pointer-events-none flex items-center invisible group-hover:visible group-hover:translate-x-2 transition-all duration-100", -->
+	<!-- 			isActive ? "visible translate-x-2" : "invisible", -->
+	<!-- 		), -->
+	<!-- 	)} -->
+	<!-- > -->
+	<!-- 	<ChevronRight class="size-5 stroke-2" /> -->
+	<!-- </div> -->
 </li>

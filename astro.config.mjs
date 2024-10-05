@@ -6,8 +6,5 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  redirects: {
-    "/": "/motivations"
-  },
-  integrations: [tailwind(), mdx(), react()]
+  integrations: [tailwind(), mdx(), react()],
 });

@@ -1,0 +1,35 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import { getCollection } from "astro:content";
+
+const page = "Deckbuilding and Ramp";
+const collection = await getCollection("deckbuilding-ramp");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
+---
+
+<RootLayout title={page} sections={parsedCollection}>
+  <article class="prose pb-60">
+    <h1 id="page-header">{page}</h1>
+    <p>
+      While much of your ramp will be defined by the play pattern and strategy
+      of your deck, we’ve found that density will remain fairly consistent
+      across power levels with quality being the primary indicator of an
+      increase in power.
+    </p>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
+  </article>
+</RootLayout>

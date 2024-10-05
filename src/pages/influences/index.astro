@@ -1,33 +1,29 @@
 ---
 import RootLayout from "../../layouts/RootLayout.astro";
-// import ArticleLink from "../components/ArticleLink.astro";
+import { getCollection } from "astro:content";
 
-const sections = [
-  { name: "Strategies", id: "strategies" },
-  { name: "Tutors", id: "tutors" },
-  { name: "Combos", id: "combos" },
-  { name: "Threat Levels", id: "threat-levels" },
-];
+const page = "Influences";
+const collection = await getCollection("influences-overview");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
 ---
 
-<RootLayout title="Influences" sections={sections}>
+<RootLayout title={page} sections={parsedCollection}>
   <article class="prose pb-60">
-    <h1 id="page-header">Influences</h1>
-    <section id="strategies">
-      <h2>Strategies</h2>
-      <p>test</p>
-    </section>
-    <section id="tutors">
-      <h2>Tutors</h2>
-      <p>test</p>
-    </section>
-    <section id="combos">
-      <h2>Combos</h2>
-      <p>test</p>
-    </section>
-    <section id="threat-levels">
-      <h2>Threat Levels</h2>
-      <p>test</p>
-    </section>
+    <h1 id="page-header">{page}</h1>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
   </article>
 </RootLayout>

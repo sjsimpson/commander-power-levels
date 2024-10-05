@@ -1,22 +1,28 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
+import { getCollection } from "astro:content";
 
-const sections = [
-  { name: "Consistent Power Levels", id: "consistency" },
-  { name: "Vegetables", id: "vegetables" },
-];
+const collection = await getCollection("assumptions");
+const parsedCollection = await Promise.all(
+  collection
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (item) => {
+      const { Content } = await item.render();
+      return { id: item.data.id, name: item.data.name, content: Content };
+    }),
+);
 ---
 
-<RootLayout title="Assumptions" sections={sections}>
+<RootLayout title="Assumptions" sections={parsedCollection}>
   <article class="prose pb-60">
     <h1 id="page-header">Assumptions</h1>
-    <section id="consistency">
-      <h2>Consistent Power Levels</h2>
-      <p>test</p>
-    </section>
-    <section id="vegetables">
-      <h2>Vegetables</h2>
-      <p>test</p>
-    </section>
+    {
+      parsedCollection.map((item) => (
+        <section id={item.id}>
+          <h2>{item.name}</h2>
+          <item.content />
+        </section>
+      ))
+    }
   </article>
 </RootLayout>
