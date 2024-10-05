@@ -1,35 +1,16 @@
 ---
 import RootLayout from "../../layouts/RootLayout.astro";
-import { getCollection } from "astro:content";
+import Article from "../../components/Article.astro";
 
-const page = "Threat Levels";
-const collection = await getCollection("influences-threat-levels");
-const parsedCollection = await Promise.all(
-  collection
-    .sort((a, b) => a.data.order - b.data.order)
-    .map(async (item) => {
-      const { Content } = await item.render();
-      return { id: item.data.id, name: item.data.name, content: Content };
-    }),
-);
+const pageName = "Threat Levels";
+const leadText =
+  "Threat assessment is a difficult skill, made even more difficult by playing a multiplayer game. The purpose of this project is not to improve your threat assessment, but rather, give you tools for threat categorization.";
 ---
 
-<RootLayout title={page} sections={parsedCollection}>
-  <article class="prose pb-60">
-    <h1 id="page-header">{page}</h1>
-    <p>
-      Threat assessment is a difficult skill, made even more difficult by
-      playing a multiplayer game. The purpose of this project is not to improve
-      your threat assessment, but rather, give you tools for threat
-      categorization.
-    </p>
-    {
-      parsedCollection.map((item) => (
-        <section id={item.id}>
-          <h2>{item.name}</h2>
-          <item.content />
-        </section>
-      ))
-    }
-  </article>
+<RootLayout title={pageName}>
+  <Article
+    pageName={pageName}
+    collectionName="influences-threat-levels"
+    leadText={leadText}
+  />
 </RootLayout>

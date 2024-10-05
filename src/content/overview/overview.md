@@ -16,7 +16,9 @@ The purpose of this resource is to provide Commander players with tools for
 building decks to specific power levels, evaluating the power levels of cards
 and decks, and having more productive Rule 0 discussions.
 
-Disclaimer: On September 30th, 2024, Wizards of the Coast announced the
-development of a bracketing system for Commander decks by power level. Once
-this system is available, we will adapt the contents of this site to be
-compatible with the brackets and guidelines that are provided.
+> ### Disclaimer:
+>
+> On September 30th, 2024, Wizards of the Coast announced the
+> development of a bracketing system for Commander decks by power level. Once
+> this system is available, we will adapt the contents of this site to be
+> compatible with the brackets and guidelines that are provided.

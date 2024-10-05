@@ -1,28 +1,10 @@
 ---
+import Article from "../components/Article.astro";
 import RootLayout from "../layouts/RootLayout.astro";
-import { getCollection } from "astro:content";
 
-const collection = await getCollection("power-levels");
-const parsedCollection = await Promise.all(
-  collection
-    .sort((a, b) => a.data.order - b.data.order)
-    .map(async (item) => {
-      const { Content } = await item.render();
-      return { id: item.data.id, name: item.data.name, content: Content };
-    }),
-);
+const pageName = "Power Levels";
 ---
 
-<RootLayout title="Power Levels" sections={parsedCollection}>
-  <article class="prose pb-60">
-    <h1 id="page-header">Power Levels</h1>
-    {
-      parsedCollection.map((item) => (
-        <section id={item.id}>
-          <h2>{item.name}</h2>
-          <item.content />
-        </section>
-      ))
-    }
-  </article>
+<RootLayout title={pageName}>
+  <Article pageName={pageName} collectionName="power-levels" />
 </RootLayout>

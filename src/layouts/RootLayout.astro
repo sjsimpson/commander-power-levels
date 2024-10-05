@@ -1,14 +1,14 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-import { SubNav, type SubNavItem } from "../components/SubNav";
+import { SubNav } from "../components/SubNav";
 import { Nav, type TopLevelNavItem } from "../components/Nav";
 
 interface Props {
 	title: string;
-	sections: SubNavItem[];
 }
 
-const { title, sections } = Astro.props;
+const { title } = Astro.props;
+const currentUrl = Astro.url;
 
 const navItems: TopLevelNavItem[] = [
 	{ name: "Motivations", href: "/" },
@@ -93,7 +93,12 @@ const navItems: TopLevelNavItem[] = [
 				<a href="/" class="cursor-pointer">Commander Power Levels</a>
 			</div>
 			<!-- <input class="py-1 px-2" placeholder="search" /> -->
-			<Nav client:only transition:persist links={navItems} />
+			<Nav
+				client:load
+				transition:persist
+				pathname={currentUrl.pathname}
+				links={navItems}
+			/>
 		</div>
 		<div
 			id="root"
@@ -105,7 +110,7 @@ const navItems: TopLevelNavItem[] = [
 				</div>
 				<div class="h-96">FOOTER</div>
 			</main>
-			<SubNav client:load pageTitle={title} items={sections} />
+			<SubNav client:only="react" pageTitle={title} />
 		</div>
 	</body>
 </html>

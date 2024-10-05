@@ -1,36 +1,16 @@
 ---
+import Article from "../../components/Article.astro";
 import RootLayout from "../../layouts/RootLayout.astro";
-import { getCollection } from "astro:content";
 
-const page = "Deckbuilding and Interaction";
-const collection = await getCollection("deckbuilding-interaction");
-const parsedCollection = await Promise.all(
-  collection
-    .sort((a, b) => a.data.order - b.data.order)
-    .map(async (item) => {
-      const { Content } = await item.render();
-      return { id: item.data.id, name: item.data.name, content: Content };
-    }),
-);
+const pageName = "Deckbuilding Interaction";
+const leadText =
+  "Both the density and the quality of the interaction you include in your deck will be affected by the power level. The data presented here is mostly observational from looking at our own decks, preconstructed decks, and decks from other content creators. The guidelines presented here only apply to casual Commander.";
 ---
 
-<RootLayout title={page} sections={parsedCollection}>
-  <article class="prose pb-60">
-    <h1 id="page-header">{page}</h1>
-    <p>
-      Both the density and the quality of the interaction you include in your
-      deck will be affected by the power level. The data presented here is
-      mostly observational from looking at our own decks, preconstructed decks,
-      and decks from other content creators. The guidelines presented here only
-      apply to casual Commander.
-    </p>
-    {
-      parsedCollection.map((item) => (
-        <section id={item.id}>
-          <h2>{item.name}</h2>
-          <item.content />
-        </section>
-      ))
-    }
-  </article>
+<RootLayout title={pageName}>
+  <Article
+    pageName={pageName}
+    collectionName="deckbuilding-interaction"
+    leadText={leadText}
+  />
 </RootLayout>

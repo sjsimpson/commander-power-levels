@@ -9,7 +9,7 @@ import {
 
 const SCROLL_OFFSET_TOP = 120;
 
-export interface SubNavItem {
+interface SubNavItem {
   name: string;
   id: string;
 }
@@ -66,18 +66,20 @@ function useSubNav() {
   return context;
 }
 
-export function SubNav({
-  pageTitle,
-  items,
-}: {
-  pageTitle: string;
-  items: SubNavItem[];
-}) {
+// NOTE: Assumes a specific structure containing "sections"
+// Probably a dangerous way to do this, but also prevents needing to pass
+// variables around
+export function SubNav({ pageTitle }: { pageTitle: string }) {
+  const sections = document.querySelectorAll("section");
+
   return (
     <SubNavProvider>
       <SubNavHeader title={pageTitle} />
-      {items.map((item) => (
-        <SubNavItem key={item.id} item={item} />
+      {[...sections].map((item) => (
+        <SubNavItem
+          key={item.id}
+          item={{ id: item.id, name: item.id.replaceAll("-", " ") }}
+        />
       ))}
       <Underline />
     </SubNavProvider>
@@ -173,7 +175,7 @@ function SubNavItem({ item }: { item: SubNavItem }) {
         }
       }}
     >
-      {item.name}
+      {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
     </div>
   );
 }

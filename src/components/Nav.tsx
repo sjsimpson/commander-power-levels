@@ -19,7 +19,13 @@ export interface TopLevelNavItem extends NavItem {
   children?: NavItem[];
 }
 
-export function Nav({ links }: { links: TopLevelNavItem[] }) {
+export function Nav({
+  pathname,
+  links,
+}: {
+  pathname: string;
+  links: TopLevelNavItem[];
+}) {
   return (
     <ul className="flex flex-col gap-1 w-full h-screen border-r border-r-slate-200 px-4">
       {links.map((link) => (
@@ -27,6 +33,7 @@ export function Nav({ links }: { links: TopLevelNavItem[] }) {
           key={link.href}
           name={link.name}
           href={link.href}
+          pathname={pathname}
           children={link.children}
         />
       ))}
@@ -34,19 +41,22 @@ export function Nav({ links }: { links: TopLevelNavItem[] }) {
   );
 }
 
-function NavLink({ name, href, children }: TopLevelNavItem) {
-  const inRootPath = window.location.pathname === "/";
+function NavLink({
+  pathname,
+  name,
+  href,
+  children,
+}: { pathname: string } & TopLevelNavItem) {
+  const inRootPath = pathname === "/";
   const isRoot = href === "/";
-  const active =
-    (isRoot && inRootPath) ||
-    (!isRoot && window.location.pathname.includes(href));
+  const active = (isRoot && inRootPath) || (!isRoot && pathname.includes(href));
 
   const [open, setOpen] = useState(false);
 
   return (
     <li className="group/parent">
       <div className="flex flex-row">
-        <Link layer="parent" name={name} href={href} />
+        <Link layer="parent" name={name} href={href} pathname={pathname} />
         {children && !active && (
           <div
             className={clsx(
@@ -63,7 +73,12 @@ function NavLink({ name, href, children }: TopLevelNavItem) {
         <ChildrenWrapper collapsed={!(active || open)}>
           {children.map((child) => (
             <li key={child.href} className="group/child">
-              <Link layer="child" name={child.name} href={href + child.href} />
+              <Link
+                layer="child"
+                name={child.name}
+                href={href + child.href}
+                pathname={pathname}
+              />
             </li>
           ))}
         </ChildrenWrapper>
@@ -105,12 +120,11 @@ function Link({
   href,
   name,
   layer,
-}: NavItem & VariantProps<typeof LinkVariants>) {
-  const inRootPath = window.location.pathname === "/";
+  pathname,
+}: NavItem & { pathname: string } & VariantProps<typeof LinkVariants>) {
+  const inRootPath = pathname === "/";
   const isRoot = href === "/";
-  const active =
-    (isRoot && inRootPath) ||
-    (!isRoot && window.location.pathname.includes(href));
+  const active = (isRoot && inRootPath) || (!isRoot && pathname.includes(href));
 
   return (
     <a
