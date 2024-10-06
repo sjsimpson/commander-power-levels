@@ -87,9 +87,9 @@ const navItems: TopLevelNavItem[] = [
 		transition:animate="none"
 	>
 		<div
-			class="flex flex-col h-screen w-1/5 top-0 left-0 pl-20 pt-24 pb-12 gap-4 z-10"
+			class="fixed top-0 left-0 flex flex-col h-screen w-72 pl-20 pt-24 pb-12 gap-4 z-10"
 		>
-			<div class="uppercase tracking-wider font-semibold text-xl px-8">
+			<div class="uppercase tracking-wider font-semibold text-xl">
 				<a href="/" class="cursor-pointer">Commander Power Levels</a>
 			</div>
 			<!-- <input class="py-1 px-2" placeholder="search" /> -->
@@ -102,7 +102,7 @@ const navItems: TopLevelNavItem[] = [
 		</div>
 		<div
 			id="root"
-			class="relative pt-24 pl-20 flex flex-row w-4/5 overflow-y-auto max-h-screen scroll-smooth gap-16"
+			class="relative pl-72 pt-24 flex flex-row w-full justify-center overflow-y-auto max-h-screen scroll-smooth gap-16"
 		>
 			<main class="flex flex-col lg:max-w-2xl">
 				<slot />
@@ -111,3 +111,8 @@ const navItems: TopLevelNavItem[] = [
 		</div>
 	</body>
 </html>
+<style is:global>
+	:target {
+		scroll-margin-top: 96px;
+	}
+</style>

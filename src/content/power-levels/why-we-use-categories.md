@@ -1,6 +1,6 @@
 ---
-name: Why do we use categories?
-id: why-do-we-use-categories
+name: Why we use categories
+id: why-we-use-categories
 order: 0
 ---
 

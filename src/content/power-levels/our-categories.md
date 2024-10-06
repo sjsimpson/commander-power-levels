@@ -1,6 +1,6 @@
 ---
-name: What are our categories?
-id: what-are-our-categories
+name: Our categories
+id: our-categories
 order: 1
 ---
 

@@ -27,7 +27,7 @@ export function Nav({
   links: TopLevelNavItem[];
 }) {
   return (
-    <ul className="flex flex-col gap-1 w-full h-screen border-r border-r-slate-200 px-4">
+    <ul className="flex flex-col gap-1 w-full h-screen border-r border-r-slate-200">
       {links.map((link) => (
         <NavLink
           key={link.href}
@@ -87,7 +87,7 @@ function NavLink({
   );
 }
 
-const ChildrenWrapperStyles = cva(["pl-16"], {
+const ChildrenWrapperStyles = cva(["pl-8"], {
   variants: {
     collapsed: {
       true: "hidden",
@@ -129,7 +129,7 @@ function Link({
   return (
     <a
       href={href}
-      className={twMerge(clsx("flex py-1 pl-4 gap-2 items-center relative"))}
+      className={twMerge(clsx("flex py-1 gap-2 items-center relative"))}
     >
       <ArrowIndicator layer={layer} active={active} />
       <div className={LinkVariants({ layer })}>
@@ -143,7 +143,7 @@ function Link({
 const ArrowIndicatorVariants = cva(
   [
     "absolute size-6 pointer-events-none flex items-center",
-    "top-1 -left-4 duration-100",
+    "top-1 -left-8 duration-100",
   ],
   {
     variants: {
@@ -175,7 +175,7 @@ function ArrowIndicator({
 }
 
 const UnderlineIndicatorVariants = cva(
-  ["absolute top-6 h-[2px] rounded-full bg-slate-700 duration-200"],
+  ["absolute top-6 h-[1px] rounded-full bg-slate-700 duration-200"],
   {
     variants: {
       layer: {
