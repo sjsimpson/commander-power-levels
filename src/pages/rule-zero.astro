@@ -3,8 +3,13 @@ import Article from "../components/Article.astro";
 import RootLayout from "../layouts/RootLayout.astro";
 
 const pageName = "Rule 0 Conversations";
+
+const prevPage = {
+  name: "Threat Levels",
+  href: "/influences/threat-levels",
+};
 ---
 
 <RootLayout title={pageName}>
-  <Article pageName={pageName} collectionName="rule-zero" />
+  <Article pageName={pageName} collectionName="rule-zero" prevPage={prevPage} />
 </RootLayout>

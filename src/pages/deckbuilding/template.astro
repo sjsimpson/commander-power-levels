@@ -5,6 +5,16 @@ import RootLayout from "../../layouts/RootLayout.astro";
 const pageName = "Deckbuilding Template";
 const leadText =
   "The following sections will provide a quick reference of guidelines for the “vegetables” of your deck. Also included is a sample deckbuilding template for a Mid-power deck. You can find a breakdown of each vegetable on subsequent pages.";
+
+const prevPage = {
+  name: "Deckbuliding",
+  href: "/deckbuilding",
+};
+
+const nextPage = {
+  name: "Card Advantage",
+  href: "/deckbuilding/card-advantage",
+};
 ---
 
 <RootLayout title={pageName}>
@@ -12,5 +22,7 @@ const leadText =
     pageName={pageName}
     collectionName="deckbuilding-template"
     leadText={leadText}
+    nextPage={nextPage}
+    prevPage={prevPage}
   />
 </RootLayout>

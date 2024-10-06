@@ -5,6 +5,16 @@ import RootLayout from "../../layouts/RootLayout.astro";
 const pageName = "Deckbuilding Ramp";
 const leadText =
   "While much of your ramp will be defined by the play pattern and strategy of your deck, we’ve found that density will remain fairly consistent across power levels with quality being the primary indicator of an increase in power.";
+
+const prevPage = {
+  name: "Interaction",
+  href: "/deckbuilding/interaction",
+};
+
+const nextPage = {
+  name: "Influences",
+  href: "/influences",
+};
 ---
 
 <RootLayout title={pageName}>
@@ -12,5 +22,7 @@ const leadText =
     pageName={pageName}
     collectionName="deckbuilding-ramp"
     leadText={leadText}
+    nextPage={nextPage}
+    prevPage={prevPage}
   />
 </RootLayout>

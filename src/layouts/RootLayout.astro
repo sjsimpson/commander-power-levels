@@ -104,11 +104,8 @@ const navItems: TopLevelNavItem[] = [
 			id="root"
 			class="relative pt-24 pl-20 flex flex-row w-4/5 overflow-y-auto max-h-screen scroll-smooth gap-16"
 		>
-			<main class="max-w-[1200px]">
-				<div class="flex flex-col h-fit">
-					<slot />
-				</div>
-				<div class="h-96">FOOTER</div>
+			<main class="flex flex-col lg:max-w-2xl">
+				<slot />
 			</main>
 			<SubNav client:only="react" pageTitle={title} />
 		</div>

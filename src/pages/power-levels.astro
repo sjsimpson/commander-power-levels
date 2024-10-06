@@ -3,8 +3,23 @@ import Article from "../components/Article.astro";
 import RootLayout from "../layouts/RootLayout.astro";
 
 const pageName = "Power Levels";
+
+const nextPage = {
+  name: "Assumptions",
+  href: "/assumptions",
+};
+
+const prevPage = {
+  name: "Motivations",
+  href: "/",
+};
 ---
 
 <RootLayout title={pageName}>
-  <Article pageName={pageName} collectionName="power-levels" />
+  <Article
+    pageName={pageName}
+    collectionName="power-levels"
+    nextPage={nextPage}
+    prevPage={prevPage}
+  />
 </RootLayout>

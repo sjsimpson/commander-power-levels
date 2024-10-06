@@ -3,8 +3,23 @@ import Article from "../../components/Article.astro";
 import RootLayout from "../../layouts/RootLayout.astro";
 
 const pageName = "Tutors";
+
+const prevPage = {
+  name: "Combos",
+  href: "/influences/combos",
+};
+
+const nextPage = {
+  name: "Threat Levels",
+  href: "/influences/threat-levels",
+};
 ---
 
 <RootLayout title={pageName}>
-  <Article pageName={pageName} collectionName="influences-tutors" />
+  <Article
+    pageName={pageName}
+    collectionName="influences-tutors"
+    nextPage={nextPage}
+    prevPage={prevPage}
+  />
 </RootLayout>

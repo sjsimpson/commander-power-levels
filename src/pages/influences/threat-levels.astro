@@ -5,6 +5,16 @@ import Article from "../../components/Article.astro";
 const pageName = "Threat Levels";
 const leadText =
   "Threat assessment is a difficult skill, made even more difficult by playing a multiplayer game. The purpose of this project is not to improve your threat assessment, but rather, give you tools for threat categorization.";
+
+const prevPage = {
+  name: "Tutors",
+  href: "/influences/tutors",
+};
+
+const nextPage = {
+  name: "Rule 0 Conversations",
+  href: "/rule-zero",
+};
 ---
 
 <RootLayout title={pageName}>
@@ -12,5 +22,7 @@ const leadText =
     pageName={pageName}
     collectionName="influences-threat-levels"
     leadText={leadText}
+    nextPage={nextPage}
+    prevPage={prevPage}
   />
 </RootLayout>

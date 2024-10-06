@@ -5,6 +5,16 @@ import RootLayout from "../../layouts/RootLayout.astro";
 const pageName = "Deckbuilding Interaction";
 const leadText =
   "Both the density and the quality of the interaction you include in your deck will be affected by the power level. The data presented here is mostly observational from looking at our own decks, preconstructed decks, and decks from other content creators. The guidelines presented here only apply to casual Commander.";
+
+const prevPage = {
+  name: "Card Advantage",
+  href: "/deckbuilding/card-advantage",
+};
+
+const nextPage = {
+  name: "Ramp",
+  href: "/deckbuilding/ramp",
+};
 ---
 
 <RootLayout title={pageName}>
@@ -12,5 +22,7 @@ const leadText =
     pageName={pageName}
     collectionName="deckbuilding-interaction"
     leadText={leadText}
+    nextPage={nextPage}
+    prevPage={prevPage}
   />
 </RootLayout>

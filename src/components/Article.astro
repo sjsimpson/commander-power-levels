@@ -1,14 +1,18 @@
 ---
 import { type ContentEntryMap, getCollection } from "astro:content";
 import { cva } from "class-variance-authority";
+import Footer from "./Footer.astro";
 
 interface Props {
 	pageName: string;
 	collectionName: keyof ContentEntryMap;
+	nextPage?: { name: string; href: string };
+	prevPage?: { name: string; href: string };
 	leadText?: string;
 }
 
-const { pageName, collectionName, leadText } = Astro.props;
+const { pageName, collectionName, leadText, nextPage, prevPage } = Astro.props;
+
 const collection = await getCollection(collectionName);
 const parsedCollection = await Promise.all(
 	collection
@@ -19,7 +23,7 @@ const parsedCollection = await Promise.all(
 		}),
 );
 
-const proseStyles = cva(["prose prose-quoteless pb-60"]);
+const proseStyles = cva(["prose prose-quoteless"]);
 ---
 
 <article class={proseStyles()}>
@@ -33,4 +37,5 @@ const proseStyles = cva(["prose prose-quoteless pb-60"]);
 			</section>
 		))
 	}
+	<Footer nextPage={nextPage} prevPage={prevPage} />
 </article>
