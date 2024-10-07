@@ -1,7 +1,9 @@
 ---
 import { type ContentEntryMap, getCollection } from "astro:content";
+import LinkIcon from "astro-heroicons/solid/Link.astro";
 import { cva } from "class-variance-authority";
 import Footer from "./Footer.astro";
+import CopyLinkButton from "./CopyLinkButton.astro";
 
 interface Props {
 	pageName: string;
@@ -27,11 +29,16 @@ const proseStyles = cva(["prose prose-quoteless"]);
 ---
 
 <article class={proseStyles()}>
-	<h1 id="page-header">{pageName}</h1>
+	<h1 id="page-header">
+		{pageName}
+	</h1>
 	{leadText && <p>{leadText}</p>}
 	{
 		parsedCollection.map((item) => (
-			<section id={item.id}>
+			<section id={item.id} class="relative group">
+				<div class="absolute w-10 h-full -left-10">
+					<CopyLinkButton hash={`#${item.id}`} />
+				</div>
 				<h2>{item.name}</h2>
 				<item.content />
 			</section>

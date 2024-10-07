@@ -1,0 +1,38 @@
+---
+import LinkIcon from "astro-heroicons/solid/Link.astro";
+
+interface Props {
+	hash: string;
+}
+
+const { hash } = Astro.props;
+const url = Astro.url;
+---
+
+<copy-link-button data-hash={hash} data-url={url}>
+	<button
+		class="size-8 flex items-center justify-center p-2 rounded-full invisible group-hover:visible hover:bg-slate-200 cursor-pointer"
+	>
+		<LinkIcon class="size-5" />
+	</button>
+</copy-link-button>
+
+<script>
+	class CopyLinkButton extends HTMLElement {
+		connectedCallback() {
+			const url = this.dataset.url;
+			const hash = this.dataset.hash;
+
+			const buttons = this.querySelectorAll("button");
+			buttons.forEach((button) =>
+				button.addEventListener("click", async () => {
+					if (url && hash) {
+						await navigator.clipboard.writeText(url?.toString() + hash);
+					}
+				}),
+			);
+		}
+	}
+
+	customElements.define("copy-link-button", CopyLinkButton);
+</script>
