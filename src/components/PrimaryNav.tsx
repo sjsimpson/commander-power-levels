@@ -134,7 +134,7 @@ function NavLink({
   const isRoot = href === "/";
   const active = (isRoot && inRootPath) || (!isRoot && pathname.includes(href));
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <li className="group/parent">

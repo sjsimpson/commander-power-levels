@@ -4,18 +4,11 @@ id: overview
 order: 0
 ---
 
-Power levels are a way to describe the expected play experience of a Commander
-deck. Since Commander is a casual, multiplayer format, it's crucial for players to agree on a shared play experience to achieve balance and ensure enjoyment in their games.
+In casual Commander it's crucial for players to agree on a shared play experience to achieve balance and ensure enjoyment in their games. Power levels, historically on a scale from 1 to 10, are often used as a “shortcut” for the deck’s relative strength and play patterns in pregame discussions.
 
-A scale from 1-10 has long been used to describe the power level of a deck and
-act as a “shortcut” for the deck’s relative strength and play patterns in
-pregame discussions. This way of describing power levels has been unproductive
-at best. We believe that this is primarily due to the qualitative nature of
-the discussion.
+In our experience, the 10-point scale has been unproductive at best. We believe this is primarily due to the size of the scale and the qualitative nature of the discussion. The purpose of this resource is to provide Commander players with tools to build decks to specific power levels, evaluate the power levels of cards and decks, and have more productive Rule 0 discussions.
 
-The purpose of this resource is to provide Commander players with tools for
-building decks to specific power levels, evaluating the power levels of cards
-and decks, and having more productive Rule 0 discussions.
+We recognize that these power level philosophies here are neither complete, nor perfect. This is meant to act as a living document that will be updated over time as the format develops and we gather additional feedback.
 
 > ### Disclaimer
 >

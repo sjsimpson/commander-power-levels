@@ -4,10 +4,8 @@ id: deckbuilding-overview
 order: 0
 ---
 
-Power levels are best considered during deckbuilding. You can use a power level as a way to inform your deckbuilding decisions: how many of each “vegetable” to add, how efficient cards should be, what kinds of strategies to build around, etc.
+While many people will build decks and _then_ seek to evaluate its power level, we find that this can often create problems. Decks may end up including cards and strategies that are inconsistent with one another, or may include [power level outliers](/assumptions#consistency).
 
-While many people will build decks and then seek to evaluate the power level of the deck, we find that this can often create problems. Decks may end up including cards and strategies that are inconsistent with one another, or may include power level outliers. These problems can require a lot of work to fix and may dramatically alter how the deck functions.
+Instead, we recommend setting a goal for a specific power level and then building towards it. This will enable you to use the target power level as a way to inform your deckbuilding decisions: how many of each [vegetable](assumptions#vegetables) to add, what kinds of [strategies](influences/strategies) to build around, whether you should play [tutors](influences/tutors) or [combos](influences/combos), etc.
 
-We recommend setting a goal for a specific power level and then building towards it. This will help you to make choices when it comes to the cards and strategies that you include. This can often feel labor intensive during deckbuilding and playtesting, but it will help prevent inconsistency when you sit down to play.
-
-This section includes our deckbuilding template and a breakdown of deckbuilding for each vegetable across power levels.
+This section includes our [deckbuilding template](deckbuilding/template) and a breakdown of deckbuilding for each vegetable across power levels.

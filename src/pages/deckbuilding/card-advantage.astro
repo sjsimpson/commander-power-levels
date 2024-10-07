@@ -2,10 +2,7 @@
 import Article from "../../components/Article.astro";
 import RootLayout from "../../layouts/RootLayout.astro";
 
-const pageName = "Deckbuilding Card Advantage";
-const leadText =
-  "The amount of card advantage to include in your deck can often feel very difficult to nail down. By their very nature, including more card advantage pieces in your deck will increase the number of cards you get to see over the course of a game (including other card advantage pieces). Having a card advantage engine available in the command zone may also distort how you construct your deck.";
-
+const pageName = "Card Advantage";
 const prevPage = {
   name: "Template",
   href: "/deckbuilding/template",
@@ -20,8 +17,7 @@ const nextPage = {
 <RootLayout title={pageName}>
   <Article
     pageName={pageName}
-    collectionName="deckbuilding-interaction"
-    leadText={leadText}
+    collectionName="deckbuilding-card-advantage"
     nextPage={nextPage}
     prevPage={prevPage}
   />
