@@ -20,7 +20,7 @@ export function PrimaryNav({
 
   return (
     <>
-      <div className="fixed flex flex-row lg:hidden h-20 w-full items-center z-10 bg-slate-100 pl-4 2xs:pl-12 gap-4">
+      <div className="fixed flex flex-row lg:hidden h-20 w-full items-center z-10 bg-slate-100 pl-12 gap-4">
         <div
           className=" rounded-full size-5 cursor-pointer"
           onClick={() => setOpen(true)}
@@ -32,7 +32,7 @@ export function PrimaryNav({
         pathname={pathname}
         navItems={navItems}
         open={open}
-        setOpen={setOpen}
+        setOpen={(open: boolean) => setOpen(open)}
       />
     </>
   );
@@ -40,8 +40,8 @@ export function PrimaryNav({
 
 const NavDrawerStyles = cva(
   [
-    "fixed top-0 left-0 flex flex-col h-screen w-72 pl-20 pt-24 pb-12 gap-4 z-30",
-    "bg-slate-100 transition-all duration-100",
+    "fixed top-0 flex flex-col h-screen w-72 pl-20 pt-24 pb-12 gap-4 z-30",
+    "bg-slate-100 transition-all duration-100 -left-72",
   ],
   {
     variants: {
@@ -87,7 +87,7 @@ export function NavDrawer({
     <>
       <div className={NavDrawerStyles({ open: open || lg, largeScreen: lg })}>
         <div
-          className="absolute top-8 left-4 2xs:left-12 rounded-full size-5 lg:hidden cursor-pointer"
+          className="absolute top-8 left-12 rounded-full size-5 lg:hidden cursor-pointer z-40"
           onClick={() => setOpen(false)}
         >
           <ArrowLeftIcon />
