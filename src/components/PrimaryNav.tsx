@@ -1,12 +1,58 @@
-import { twMerge } from "tailwind-merge";
+import { useEffect, useState, type ReactNode } from "react";
 import { clsx } from "clsx";
+import { cva, type VariantProps } from "class-variance-authority";
+import { ArrowLeftIcon, Bars3Icon } from "@heroicons/react/20/solid";
+import { twMerge } from "tailwind-merge";
 import {
   ArrowLongRightIcon,
   ArrowTurnDownRightIcon,
   ChevronDownIcon,
 } from "@heroicons/react/20/solid";
-import { cva, type VariantProps } from "class-variance-authority";
-import { useState, type ReactNode } from "react";
+
+export function PrimaryNav({
+  pathname,
+  navItems,
+}: {
+  pathname: string;
+  navItems: TopLevelNavItem[];
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <div className="fixed flex flex-row lg:hidden h-20 w-full items-center z-10 bg-slate-100 pl-4 2xs:pl-12 gap-4">
+        <div
+          className=" rounded-full size-5 cursor-pointer"
+          onClick={() => setOpen(true)}
+        >
+          <Bars3Icon />
+        </div>
+      </div>
+      <NavDrawer
+        pathname={pathname}
+        navItems={navItems}
+        open={open}
+        setOpen={setOpen}
+      />
+    </>
+  );
+}
+
+const NavDrawerStyles = cva(
+  [
+    "fixed top-0 left-0 flex flex-col h-screen w-72 pl-20 pt-24 pb-12 gap-4 z-30",
+    "bg-slate-100 transition-all duration-100",
+  ],
+  {
+    variants: {
+      open: { true: "left-0", false: "-left-72" },
+      largeScreen: {
+        true: "transition-none",
+        false: "border-r border-r-slate-200",
+      },
+    },
+  },
+);
 
 interface NavItem {
   name: string;
@@ -19,25 +65,62 @@ export interface TopLevelNavItem extends NavItem {
   children?: NavItem[];
 }
 
-export function Nav({
+// FIX: Sizing at "large" shift is bad, need to really nail down sizing
+export function NavDrawer({
   pathname,
-  links,
+  navItems,
+  open,
+  setOpen,
 }: {
   pathname: string;
-  links: TopLevelNavItem[];
+  navItems: TopLevelNavItem[];
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }) {
+  const lg = useMediaQuery(breakpoints.lg);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   return (
-    <ul className="flex flex-col gap-1 w-full h-screen border-r border-r-slate-200">
-      {links.map((link) => (
-        <NavLink
-          key={link.href}
-          name={link.name}
-          href={link.href}
-          pathname={pathname}
-          children={link.children}
+    <>
+      <div className={NavDrawerStyles({ open: open || lg, largeScreen: lg })}>
+        <div
+          className="absolute top-8 left-4 2xs:left-12 rounded-full size-5 lg:hidden cursor-pointer"
+          onClick={() => setOpen(false)}
+        >
+          <ArrowLeftIcon />
+        </div>
+        <div className="uppercase tracking-wider font-semibold text-xl">
+          <a href="/" className="cursor-pointer">
+            Commander Power Levels
+          </a>
+        </div>
+        <ul
+          className={clsx(
+            "flex flex-col gap-1 w-full h-screen",
+            lg && "border-r border-r-slate-200",
+          )}
+        >
+          {navItems.map((link) => (
+            <NavLink
+              key={link.href}
+              name={link.name}
+              href={link.href}
+              pathname={pathname}
+              children={link.children}
+            />
+          ))}
+        </ul>
+      </div>
+      {open && !lg && (
+        <div
+          className="fixed w-screen h-screen bg-black/20 z-20 cursor-pointer"
+          onClick={() => setOpen(false)}
         />
-      ))}
-    </ul>
+      )}
+    </>
   );
 }
 
@@ -195,4 +278,28 @@ function UnderlineIndicator({
   active,
 }: VariantProps<typeof UnderlineIndicatorVariants>) {
   return <div className={UnderlineIndicatorVariants({ layer, active })} />;
+}
+
+export const breakpoints = {
+  sm: "(min-width: 640px)",
+  md: "(min-width: 768px)",
+  lg: "(min-width: 1024px)",
+  xl: "(min-width: 1280px)",
+  xxl: "(min-width: 1536px)",
+};
+
+export function useMediaQuery(breakpoint: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(breakpoint);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener("resize", listener);
+    return () => window.removeEventListener("resize", listener);
+  }, [matches, breakpoint]);
+
+  return matches;
 }

@@ -49,7 +49,7 @@ function SubNavProvider({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <aside className="sticky top-0 flex flex-col text-sm max-w-32">
+      <aside className="sticky top-0 text-sm max-w-32 hidden xl:flex xl:flex-col">
         {children}
       </aside>
     </subNavContext.Provider>
